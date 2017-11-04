@@ -1,13 +1,15 @@
 package dev.suhockii.lifetest;
 
-import android.app.Application;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import com.squareup.leakcanary.LeakCanary;
 
 public class AppDebug extends App {
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (!LeakCanary.isInAnalyzerProcess(this)) {
+            LeakCanary.install(this);
+        }
     }
 }

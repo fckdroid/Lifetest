@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation (
+    implementation(
             "com.android.support:appcompat-v7:$support",
             "com.android.support.constraint:constraint-layout:$constraint",
             "com.squareup.retrofit2:retrofit:$retrofit",
@@ -58,20 +58,27 @@ dependencies {
             "com.google.dagger:dagger:$dagger",
             "io.reactivex.rxjava2:rxandroid:$rxandroid",
             "io.reactivex.rxjava2:rxjava:$rxjava",
+            "android.arch.persistence.room:runtime:$room",
+            "android.arch.persistence.room:rxjava2:$room",
+            "com.arello-mobile:moxy:$moxy",
+            "com.arello-mobile:moxy-android:$moxy",
+            "com.arello-mobile:moxy-app-compat:$moxy",
     )
-    debugImplementation (
+    debugImplementation(
             "com.facebook.stetho:stetho:$stetho",
             "com.facebook.stetho:stetho-okhttp3:$stetho",
+            "com.squareup.leakcanary:leakcanary-android:$leakcanary",
     )
-    releaseImplementation (
+    releaseImplementation(
             "net.igenius:stetho-no-op:$stetho_noop",
+            "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary",
     )
-    testImplementation (
+    testImplementation(
             "junit:junit:$junit",
     )
-    annotationProcessor (
+    annotationProcessor(
             "com.arello-mobile:moxy-compiler:$moxy",
             "com.google.dagger:dagger-compiler:$dagger",
-//            "android.arch.persistence.room:compiler:$room"
+            "android.arch.persistence.room:compiler:$room",
     )
 }

@@ -6,7 +6,7 @@ import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface PictureApi {
+public interface ProductsApi {
     String BASE_URL = "https://s3-eu-west-1.amazonaws.com/developer-application-test/";
 
     /**
