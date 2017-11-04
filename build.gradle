@@ -25,3 +25,42 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    support = '26.1.0'
+    constraint = '1.1.0-beta3'
+    stetho = '1.5.0'
+    junit = '4.12'
+    stetho_noop = '1.1'
+    retrofit = '2.3.0'
+    dagger = '2.12'
+    rxjava = '2.1.6'
+    rxandroid ='2.0.1'
+
+    picasso = '2.5.2'
+
+    conductor = '2.1.4'
+    moxy = '1.5.3'
+    butterknife = '8.8.1'
+    rxbindings='2.0.0'
+    leakcanary = '1.5.1'
+    threetenabp = '1.0.5'
+    gms = '11.2.2'
+    espresso = '3.0.0'
+    mockito = '1.10.19'
+    random_beans = '3.7.0'
+    timber = '4.5.1'
+    room = '1.0.0-alpha9'
+    bottom_bar = '2.3.1'
+    rvanimations = '2.2.7'
+    gson = '2.8.1'
+    jobdispatcher = '0.8.1'
+    jodatime = '2.9.9'
+    autofittv = '0.2.1'
+    fresco = '1.5.0'
+    fresco_image_view = '0.5.0'
+    expTextView = '0.1.4'
+    lottie = '2.2.3'
+    retrofit = '2.3.0'
+    camerakit = '0.9.17'
+}

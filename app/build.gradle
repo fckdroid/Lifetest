@@ -1,28 +1,77 @@
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "dev.suhockii.lifetest"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        test {
+            storeFile file(keystoreProperties['releaseFile'])
+            keyAlias keystoreProperties['releaseAlias']
+            keyPassword keystoreProperties['releaseKeyPassword']
+            storePassword keystoreProperties['releaseStorePassword']
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.test
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation (
+            "com.android.support:appcompat-v7:$support",
+            "com.android.support.constraint:constraint-layout:$constraint",
+            "com.squareup.retrofit2:retrofit:$retrofit",
+            "com.squareup.retrofit2:converter-gson:$retrofit",
+            "com.squareup.retrofit2:adapter-rxjava2:$retrofit",
+            "com.google.dagger:dagger:$dagger",
+            "com.jakewharton.timber:timber:$timber",
+            "com.google.dagger:dagger:$dagger",
+            "io.reactivex.rxjava2:rxandroid:$rxandroid",
+            "io.reactivex.rxjava2:rxjava:$rxjava",
+    )
+    debugImplementation (
+            "com.facebook.stetho:stetho:$stetho",
+            "com.facebook.stetho:stetho-okhttp3:$stetho",
+    )
+    releaseImplementation (
+            "net.igenius:stetho-no-op:$stetho_noop",
+    )
+    testImplementation (
+            "junit:junit:$junit",
+    )
+    annotationProcessor (
+            "com.arello-mobile:moxy-compiler:$moxy",
+            "com.google.dagger:dagger-compiler:$dagger",
+//            "android.arch.persistence.room:compiler:$room"
+    )
 }
