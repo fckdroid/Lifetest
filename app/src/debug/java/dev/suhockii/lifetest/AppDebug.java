@@ -2,7 +2,7 @@ package dev.suhockii.lifetest;
 
 import com.squareup.leakcanary.LeakCanary;
 
-public class AppDebug extends App {
+public final class AppDebug extends App {
 
     @Override
     public void onCreate() {

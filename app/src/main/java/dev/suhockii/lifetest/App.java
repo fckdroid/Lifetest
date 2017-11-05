@@ -1,32 +1,30 @@
 package dev.suhockii.lifetest;
 
+import android.app.Activity;
 import android.app.Application;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-import com.squareup.leakcanary.RefWatcher;
+import javax.inject.Inject;
 
-import dev.suhockii.lifetest.di.component.AppComponent;
-import dev.suhockii.lifetest.di.component.DaggerAppComponent;
-import dev.suhockii.lifetest.di.module.AppModule;
-import dev.suhockii.lifetest.di.module.LocalDataModule;
-import dev.suhockii.lifetest.di.module.RemoteDataModule;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import dev.suhockii.lifetest.di.AppInjector;
+import timber.log.Timber;
 
-public class App extends Application {
-    private static AppComponent appComponent;
+public class App extends Application implements HasActivityInjector {
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .localDataModule(new LocalDataModule())
-                .remoteDataModule(new RemoteDataModule())
-                .build();
+        AppInjector.init(this);
+        Timber.plant();
     }
 
-    public static AppComponent getAppComponent() {
-        return appComponent;
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingActivityInjector;
     }
 }

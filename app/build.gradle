@@ -49,6 +49,7 @@ android {
 dependencies {
     implementation(
             "com.android.support:appcompat-v7:$support",
+            "com.android.support:recyclerview-v7:$support",
             "com.android.support.constraint:constraint-layout:$constraint",
             "com.squareup.retrofit2:retrofit:$retrofit",
             "com.squareup.retrofit2:converter-gson:$retrofit",
@@ -56,6 +57,7 @@ dependencies {
             "com.google.dagger:dagger:$dagger",
             "com.jakewharton.timber:timber:$timber",
             "com.google.dagger:dagger:$dagger",
+            "com.google.dagger:dagger-android-support:$dagger",
             "io.reactivex.rxjava2:rxandroid:$rxandroid",
             "io.reactivex.rxjava2:rxjava:$rxjava",
             "android.arch.persistence.room:runtime:$room",
@@ -79,6 +81,7 @@ dependencies {
     annotationProcessor(
             "com.arello-mobile:moxy-compiler:$moxy",
             "com.google.dagger:dagger-compiler:$dagger",
+            "com.google.dagger:dagger-android-processor:$dagger",
             "android.arch.persistence.room:compiler:$room",
     )
 }

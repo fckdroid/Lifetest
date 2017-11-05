@@ -27,7 +27,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    support = '26.1.0'
+    support = '27.0.0'
     constraint = '1.1.0-beta3'
     stetho = '1.5.0'
     junit = '4.12'
