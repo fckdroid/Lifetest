@@ -3,8 +3,7 @@ package dev.suhockii.lifetest.data.local.entity;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
-
-import com.google.gson.annotations.SerializedName;
+import android.support.annotation.NonNull;
 
 import dev.suhockii.lifetest.model.ProductDetails;
 
@@ -17,14 +16,26 @@ import dev.suhockii.lifetest.model.ProductDetails;
         },
         indices = @Index(value = "id"))
 public class ProductDetailsEntity implements ProductDetails {
-    private long id;
+
+    @NonNull
+    private String id;
     private String imageUrl;
     private String name;
     private int price;
     private String description;
 
+    public ProductDetailsEntity(@NonNull String id, String imageUrl, String name,
+                                int price, String description) {
+        this.id = id;
+        this.imageUrl = imageUrl;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
     @Override
-    public long getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
@@ -48,7 +59,7 @@ public class ProductDetailsEntity implements ProductDetails {
         return description;
     }
 
-    public void setId(long id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 

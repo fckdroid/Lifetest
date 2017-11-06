@@ -1,6 +1,7 @@
 package dev.suhockii.lifetest.data.local.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import io.reactivex.Single;
 
 @Dao
 public interface ProductDetailsDao {
+
     /**
      * Returns details of some product from local database.
      *
@@ -18,5 +20,13 @@ public interface ProductDetailsDao {
      * @return ProductDetailsEntity object
      */
     @Query("SELECT * FROM ProductDetails WHERE id = :id")
-    Single<ProductDetailsEntity> getProductDetails(long id);
+    Single<ProductDetailsEntity> getProductDetails(String id);
+
+    /**
+     * Save {@link ProductDetailsEntity} to local database.
+     *
+     * @param productDetailsEntity what we would like to insert in ProductDetails table.
+     */
+    @Insert
+    void saveProductDetails(ProductDetailsEntity productDetailsEntity);
 }

@@ -2,6 +2,7 @@ package dev.suhockii.lifetest.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -45,5 +46,16 @@ public class MainActivity extends InjectableActivity implements MainView,
     public void onFragmentInteraction(String title) {
         actionBar.setTitle(title);
 //        actionBar.setDisplayHomeAsUpEnabled(isDrawerLocked);
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (fragmentManager.getBackStackEntryCount() > 1) {
+            fragmentManager.popBackStack();
+        } else {
+            finish();
+        }
     }
 }

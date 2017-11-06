@@ -1,12 +1,14 @@
 package dev.suhockii.lifetest.data.remote.entity;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import dev.suhockii.lifetest.model.Product;
 
 public class ProductResponse implements Product {
     @SerializedName("product_id")
-    private long id;
+    private String id;
 
     @SerializedName("image")
     private String imageUrl;
@@ -14,8 +16,9 @@ public class ProductResponse implements Product {
     private String name;
     private int price;
 
+    @NonNull
     @Override
-    public long getId() {
+    public String getId() {
         return id;
     }
 

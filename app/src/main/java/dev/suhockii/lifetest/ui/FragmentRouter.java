@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import javax.inject.Inject;
 
 import dev.suhockii.lifetest.ui.details.DetailsFragment;
-import dev.suhockii.lifetest.ui.list.ListFragment;
+import dev.suhockii.lifetest.ui.products.ProductsFragment;
 import dev.suhockii.lifetest.ui.main.MainActivity;
 
 public final class FragmentRouter {
@@ -23,7 +23,7 @@ public final class FragmentRouter {
     }
 
     public void openListFragment() {
-        ListFragment fragment = new ListFragment();
+        ProductsFragment fragment = new ProductsFragment();
         replaceBy(fragment);
     }
 

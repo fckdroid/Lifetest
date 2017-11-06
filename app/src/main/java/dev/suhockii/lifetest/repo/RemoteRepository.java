@@ -6,24 +6,24 @@ import javax.inject.Inject;
 
 import dev.suhockii.lifetest.data.local.dao.ProductDao;
 import dev.suhockii.lifetest.data.local.dao.ProductDetailsDao;
+import dev.suhockii.lifetest.data.remote.ProductsApi;
+import dev.suhockii.lifetest.data.remote.entity.ProductListResponse;
 import dev.suhockii.lifetest.model.Product;
 import dev.suhockii.lifetest.model.ProductDetails;
 import io.reactivex.Single;
 
-public class ProductRepoImpl implements ProductRepo {
-    private ProductDao productDao;
-    private ProductDetailsDao productDetailsDao;
+public class RemoteRepository extends AppRepository {
+    private ProductsApi productsApi;
 
     @Inject
-    ProductRepoImpl(ProductDao productDao, ProductDetailsDao productDetailsDao) {
-        this.productDao = productDao;
-        this.productDetailsDao = productDetailsDao;
+    RemoteRepository(ProductsApi productsApi) {
+        this.productsApi = productsApi;
     }
 
     @Override
     public Single<List<Product>> getProducts() {
-        return productDao.getProducts()
-                .toObservable()
+        return productsApi.getProducts()
+                .map(ProductListResponse::getProducts)
                 .flatMapIterable(productEntities -> productEntities)
                 .map(productEntity -> (Product) productEntity)
                 .toList();
@@ -31,7 +31,7 @@ public class ProductRepoImpl implements ProductRepo {
 
     @Override
     public Single<ProductDetails> getDetailsFor(Product product) {
-        return productDetailsDao.getProductDetails(product.getId())
+        return productsApi.getProductDetails(product.getId())
                 .cast(ProductDetails.class);
     }
 

@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LocalDataModule {
     @Provides
     @Singleton
-    public ProductsDb provideProductsDb(Context appContext) {
+    ProductsDb provideProductsDb(Context appContext) {
         return Room.databaseBuilder(appContext, ProductsDb.class, "products.db").build();
     }
 

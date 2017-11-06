@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RemoteDataModule {
     @Provides
     @Singleton
-    public Retrofit provideRetrofit() {
+    Retrofit provideRetrofit() {
         OkHttpClient stetho = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
@@ -30,7 +30,7 @@ public class RemoteDataModule {
 
     @Provides
     @Singleton
-    public ProductsApi providePicturesApi(Retrofit retrofit) {
+    ProductsApi providePicturesApi(Retrofit retrofit) {
         return retrofit.create(ProductsApi.class);
     }
 }

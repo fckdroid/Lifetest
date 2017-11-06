@@ -12,6 +12,7 @@ import dev.suhockii.lifetest.di.AppInjector;
 import timber.log.Timber;
 
 public class App extends Application implements HasActivityInjector {
+
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
@@ -20,7 +21,6 @@ public class App extends Application implements HasActivityInjector {
         super.onCreate();
 
         AppInjector.init(this);
-        Timber.plant();
     }
 
     @Override

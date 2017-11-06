@@ -2,6 +2,7 @@ package dev.suhockii.lifetest.data.remote;
 
 import dev.suhockii.lifetest.data.remote.entity.ProductDetailsResponse;
 import dev.suhockii.lifetest.data.remote.entity.ProductListResponse;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -13,7 +14,7 @@ public interface ProductsApi {
      * The list of products can be obtained from the following method.
      */
     @GET("cart/list")
-    Single<ProductListResponse> getProducts();
+    Observable<ProductListResponse> getProducts();
 
     /**
      * A product can be obtained from the following method.
@@ -21,5 +22,5 @@ public interface ProductsApi {
      * @param productId id of the concrete entity.
      */
     @GET("cart/{id}/detail")
-    Single<ProductDetailsResponse> getProductDetails(@Path("id") int productId);
+    Single<ProductDetailsResponse> getProductDetails(@Path("id") String productId);
 }
