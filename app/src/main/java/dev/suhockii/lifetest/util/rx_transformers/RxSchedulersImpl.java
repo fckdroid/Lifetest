@@ -1,4 +1,4 @@
-package dev.suhockii.lifetest.util;
+package dev.suhockii.lifetest.util.rx_transformers;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;

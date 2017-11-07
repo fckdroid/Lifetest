@@ -40,4 +40,5 @@ ext {
     timber = '4.5.1'
     room = '1.0.0-rc1'
     picasso = '2.5.2'
+    glide = '4.3.0'
 }

@@ -12,16 +12,22 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dev.suhockii.lifetest.R;
 import dev.suhockii.lifetest.di.AppInjector;
 import dev.suhockii.lifetest.model.Product;
-import dev.suhockii.lifetest.ui.BaseFragment;
-import dev.suhockii.lifetest.util.AutofitRecyclerView;
+import dev.suhockii.lifetest.util.ui.FragmentRouter;
+import dev.suhockii.lifetest.util.ui.fragment.SnackbarFragment;
+import dev.suhockii.lifetest.util.ui.layout.AutofitRecyclerView;
 
-public class ProductsFragment extends BaseFragment implements ProductsView {
+public class ProductsFragment extends SnackbarFragment implements ProductsView {
 
     @InjectPresenter
     ProductsPresenter productsPresenter;
+
+    @Inject
+    FragmentRouter fragmentRouter;
 
     @ProvidePresenter
     ProductsPresenter provideProductsPresenter() {
@@ -33,7 +39,7 @@ public class ProductsFragment extends BaseFragment implements ProductsView {
     @NonNull
     @Override
     protected String getToolbarTitle() {
-        return "Products Fragment";
+        return getString(R.string.fragment_products_title);
     }
 
     @Override
@@ -52,14 +58,16 @@ public class ProductsFragment extends BaseFragment implements ProductsView {
     @Override
     public void showProducts(List<Product> products) {
         RecyclerView.Adapter adapter = new ProductsRecyclerAdapter(products)
-                .setOnItemClickListener(view -> {
-                    int clickedPos = rvProducts.getLayoutManager().getPosition(view);
-                    ProductsRecyclerAdapter productsRecyclerAdapter =
-                            (ProductsRecyclerAdapter) rvProducts.getAdapter();
-                    Product clickedProduct = productsRecyclerAdapter.getProductAt(clickedPos);
-                    productsPresenter.onProductClicked(clickedProduct);
-                });
-
+                .setOnProductClickListener(this::onProductClick);
         rvProducts.setAdapter(adapter);
+    }
+
+    private void onProductClick(View view) {
+        int clickedPos = rvProducts.getLayoutManager().getPosition(view);
+        ProductsRecyclerAdapter productsRecyclerAdapter =
+                (ProductsRecyclerAdapter) rvProducts.getAdapter();
+        Product clickedProduct = productsRecyclerAdapter.getProductAt(clickedPos);
+
+        fragmentRouter.openDetailsFragment(view, clickedProduct);
     }
 }

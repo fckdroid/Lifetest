@@ -8,7 +8,7 @@ import dev.suhockii.lifetest.ui.products.ProductsFragment;
 @Module
 public abstract class FragmentBuildersModule {
 
-    @ContributesAndroidInjector(modules = ProductsFragmentModule.class)
+    @ContributesAndroidInjector
     abstract ProductsFragment contributeProductsFragment();
 
     @ContributesAndroidInjector

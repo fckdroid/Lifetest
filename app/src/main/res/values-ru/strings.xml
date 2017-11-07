@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Продукты</string>
     <string name="product_image">Изображение продукта</string>
+    <string name="try_again">Повторить</string>
+    <string name="fragment_products_title">Продукты</string>
+    <string name="fragment_details_title">Описание</string>
+    <string name="network_error">Сетевая ошибка:\n</string>
 </resources>

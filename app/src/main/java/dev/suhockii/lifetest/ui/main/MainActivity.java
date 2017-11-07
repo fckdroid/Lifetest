@@ -4,18 +4,23 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
 
 import javax.inject.Inject;
 
 import dev.suhockii.lifetest.R;
-import dev.suhockii.lifetest.ui.InjectableActivity;
-import dev.suhockii.lifetest.ui.BaseFragment;
-import dev.suhockii.lifetest.ui.FragmentRouter;
+import dev.suhockii.lifetest.util.ui.activity.InjectableActivity;
+import dev.suhockii.lifetest.util.ui.fragment.InteractionFragment;
+import dev.suhockii.lifetest.util.ui.FragmentRouter;
 
 public class MainActivity extends InjectableActivity implements MainView,
-        BaseFragment.OnFragmentInteractionListener {
+        InteractionFragment.OnFragmentInteractionListener {
 
     @InjectPresenter
     MainPresenter mainPresenter;
@@ -33,7 +38,11 @@ public class MainActivity extends InjectableActivity implements MainView,
         actionBar = getSupportActionBar();
 
         if (savedInstanceState == null) {
-            fragmentRouter.openListFragment();
+            if (fragmentRouter == null) {
+                Toast.makeText(this, "fragmentRouter null", Toast.LENGTH_SHORT).show();
+            } else {
+                fragmentRouter.openListFragment();
+            }
         }
     }
 

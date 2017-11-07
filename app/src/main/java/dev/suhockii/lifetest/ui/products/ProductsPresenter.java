@@ -1,7 +1,6 @@
 package dev.suhockii.lifetest.ui.products;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
 
@@ -10,7 +9,8 @@ import javax.inject.Named;
 
 import dev.suhockii.lifetest.model.Product;
 import dev.suhockii.lifetest.repo.AppRepository;
-import dev.suhockii.lifetest.util.RxSchedulers;
+import dev.suhockii.lifetest.util.ui.NonLeakPresenter;
+import dev.suhockii.lifetest.util.rx_transformers.RxSchedulers;
 import io.reactivex.Single;
 import timber.log.Timber;
 
@@ -18,7 +18,7 @@ import static dev.suhockii.lifetest.di.module.RepositoryModule.LOCAL_REPOSITORY;
 import static dev.suhockii.lifetest.di.module.RepositoryModule.REMOTE_REPOSITORY;
 
 @InjectViewState
-public class ProductsPresenter extends MvpPresenter<ProductsView> {
+public class ProductsPresenter extends NonLeakPresenter<ProductsView> {
 
     private final AppRepository localRepository;
     private final AppRepository remoteRepository;
@@ -42,16 +42,16 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
     private void loadProducts() {
         localRepository.getProducts()
                 .onErrorResumeNext(localEmpty -> updateProducts())
+                .doOnSubscribe(compositeDisposable::add)
                 .compose(rxSchedulers.getIoToMainTransformerSingle())
+                .doOnError(throwable -> getViewState().showSnackbar(
+                        throwable.getMessage(), this::loadProducts))
+                .doOnSuccess(products -> getViewState().clearShowSnackbarCommand())
                 .subscribe(products -> getViewState().showProducts(products), Timber::e);
     }
 
     private Single<List<Product>> updateProducts() {
         return remoteRepository.getProducts()
                 .doOnSuccess(localRepository::saveProducts);
-    }
-
-    void onProductClicked(Product clickedProduct) {
-
     }
 }

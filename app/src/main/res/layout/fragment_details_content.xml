@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/size_56"
+    android:orientation="vertical"
+    tools:context="dev.suhockii.lifetest.ui.main.MainActivity"
+    tools:showIn="@layout/fragment_details">
+
+    <ImageView
+        android:id="@+id/details_iv_product"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/product_image"
+        android:padding="@dimen/size_16"
+        android:transitionName="@string/product_image_transition"
+        tools:srcCompat="@mipmap/ic_launcher"
+        tools:targetApi="lollipop" />
+
+    <TextView
+        android:id="@+id/details_tv_name"
+        style="@style/DefaultText"
+        tools:text="Apples" />
+
+    <TextView
+        android:id="@+id/details_tv_price"
+        style="@style/DefaultText"
+        tools:text="Price" />
+
+    <TextView
+        android:id="@+id/details_tv_description"
+        style="@style/DescriptionText"
+        android:paddingStart="@dimen/size_16"
+        android:paddingEnd="@dimen/size_16"
+        android:layout_weight="1"
+        tools:text="Description" />
+</LinearLayout>

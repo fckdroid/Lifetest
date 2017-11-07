@@ -3,6 +3,7 @@ package dev.suhockii.lifetest.data.local.entity;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import dev.suhockii.lifetest.model.ProductDetails;
@@ -10,7 +11,7 @@ import dev.suhockii.lifetest.model.ProductDetails;
 @Entity(tableName = "ProductDetails",
         primaryKeys = "id",
         foreignKeys = {
-                @ForeignKey(entity = ProductEntity.class,
+                @ForeignKey(entity = ProductDetailsEntity.class,
                         parentColumns = "id",
                         childColumns = "id")
         },
@@ -78,4 +79,77 @@ public class ProductDetailsEntity implements ProductDetails {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    ProductDetailsEntity(@NonNull ProductDetailsEntity.Builder builder) {
+        this.id = builder.id;
+        this.imageUrl = builder.imageUrl;
+        this.price = builder.price;
+        this.name = builder.name;
+        this.description = builder.description;
+    }
+
+    public static class Builder {
+        private String id;
+        private String imageUrl;
+        private String name;
+        private int price;
+        private String description;
+
+        public ProductDetailsEntity build() {
+            return new ProductDetailsEntity(this);
+        }
+
+        public ProductDetailsEntity.Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public ProductDetailsEntity.Builder imageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+            return this;
+        }
+
+        public ProductDetailsEntity.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ProductDetailsEntity.Builder price(int price) {
+            this.price = price;
+            return this;
+        }
+
+        public ProductDetailsEntity.Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+    }
+    
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.name);
+        dest.writeInt(this.price);
+        dest.writeString(this.description);
+    }
+
+    protected ProductDetailsEntity(Parcel in) {
+        this.id = in.readString();
+        this.imageUrl = in.readString();
+        this.name = in.readString();
+        this.price = in.readInt();
+        this.description = in.readString();
+    }
+
+    public static final Creator<ProductDetailsEntity> CREATOR = new Creator<ProductDetailsEntity>() {
+        @Override
+        public ProductDetailsEntity createFromParcel(Parcel source) {return new ProductDetailsEntity(source);}
+
+        @Override
+        public ProductDetailsEntity[] newArray(int size) {return new ProductDetailsEntity[size];}
+    };
 }

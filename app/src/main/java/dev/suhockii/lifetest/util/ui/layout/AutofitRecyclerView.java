@@ -1,4 +1,4 @@
-package dev.suhockii.lifetest.util;
+package dev.suhockii.lifetest.util.ui.layout;
 
 import android.content.Context;
 import android.content.res.TypedArray;

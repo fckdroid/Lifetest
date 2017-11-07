@@ -13,6 +13,7 @@ import dev.suhockii.lifetest.di.module.LocalDataModule;
 import dev.suhockii.lifetest.di.module.ActivityModule;
 import dev.suhockii.lifetest.di.module.RemoteDataModule;
 import dev.suhockii.lifetest.di.module.RepositoryModule;
+import dev.suhockii.lifetest.ui.details.DetailsPresenter;
 import dev.suhockii.lifetest.ui.products.ProductsPresenter;
 
 @Singleton
@@ -30,13 +31,12 @@ public interface AppComponent {
     void inject(App app);
 
     ProductsPresenter getProductsPresenter();
+    DetailsPresenter getDetailsPresenter();
 
     @Component.Builder
     interface Builder {
-
         @BindsInstance
         Builder application(Application application);
-
         AppComponent build();
     }
 }

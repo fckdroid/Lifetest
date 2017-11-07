@@ -1,4 +1,4 @@
-package dev.suhockii.lifetest.util;
+package dev.suhockii.lifetest.util.rx_transformers;
 
 import io.reactivex.CompletableTransformer;
 import io.reactivex.ObservableTransformer;

@@ -60,7 +60,13 @@ public class LocalRepository extends AppRepository {
     }
 
     @Override
-    public void saveDetailsFor(ProductDetails productDetails) {
-        productDetailsDao.saveProductDetails((ProductDetailsEntity) productDetails);
+    public void saveProductDetails(ProductDetails productDetails) {
+        productDetailsDao.saveProductDetails(new ProductDetailsEntity.Builder()
+                .description(productDetails.getDescription())
+                .id(productDetails.getId())
+                .imageUrl(productDetails.getImageUrl())
+                .name(productDetails.getName())
+                .price(productDetails.getPrice())
+                .build());
     }
 }

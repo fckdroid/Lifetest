@@ -2,8 +2,11 @@
 <resources>
     <dimen name="size_2">2dp</dimen>
     <dimen name="size_8">8dp</dimen>
+    <dimen name="size_6">6dp</dimen>
     <dimen name="size_16">16dp</dimen>
-    <dimen name="text_18">18sp</dimen>
-    <dimen name="size_86">86dp</dimen>
+    <dimen name="size_56">56dp</dimen>
+    <dimen name="size_86">98dp</dimen>
     <dimen name="size_146">146dp</dimen>
+
+    <dimen name="text_18">18sp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package dev.suhockii.lifetest.ui;
+package dev.suhockii.lifetest.util.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,11 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 
 import dev.suhockii.lifetest.di.Injectable;
 
-public abstract class BaseFragment extends MvpAppCompatFragment implements Injectable {
+/**
+ * Sends signal to activity that implements {@link OnFragmentInteractionListener#onFragmentInteraction}
+ * that fragment has been connected.
+ */
+public abstract class InteractionFragment extends MvpAppCompatFragment implements Injectable {
     protected OnFragmentInteractionListener onFragmentInteractionListener;
 
     @Nullable

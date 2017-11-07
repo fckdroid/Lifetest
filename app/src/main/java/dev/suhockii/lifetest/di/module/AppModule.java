@@ -5,12 +5,11 @@ import android.content.Context;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.AndroidInjectionModule;
-import dev.suhockii.lifetest.util.RxSchedulers;
-import dev.suhockii.lifetest.util.RxSchedulersImpl;
+import dev.suhockii.lifetest.util.rx_transformers.RxSchedulers;
+import dev.suhockii.lifetest.util.rx_transformers.RxSchedulersImpl;
 
 @Module(includes = AndroidInjectionModule.class)
 public class AppModule {

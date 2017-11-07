@@ -1,5 +1,6 @@
 package dev.suhockii.lifetest.data.remote.entity;
 
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
@@ -43,4 +44,34 @@ public class ProductDetailsResponse implements ProductDetails {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.name);
+        dest.writeInt(this.price);
+        dest.writeString(this.description);
+    }
+
+    public ProductDetailsResponse() {}
+
+    protected ProductDetailsResponse(Parcel in) {
+        this.id = in.readString();
+        this.imageUrl = in.readString();
+        this.name = in.readString();
+        this.price = in.readInt();
+        this.description = in.readString();
+    }
+
+    public static final Creator<ProductDetailsResponse> CREATOR = new Creator<ProductDetailsResponse>() {
+        @Override
+        public ProductDetailsResponse createFromParcel(Parcel source) {return new ProductDetailsResponse(source);}
+
+        @Override
+        public ProductDetailsResponse[] newArray(int size) {return new ProductDetailsResponse[size];}
+    };
 }

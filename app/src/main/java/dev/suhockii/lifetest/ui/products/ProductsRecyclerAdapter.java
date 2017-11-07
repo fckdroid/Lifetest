@@ -1,5 +1,6 @@
 package dev.suhockii.lifetest.ui.products;
 
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -15,33 +16,19 @@ import dev.suhockii.lifetest.R;
 import dev.suhockii.lifetest.model.Product;
 
 class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapter.RecyclerViewHolder> {
-    private final View.OnClickListener onProductClickListener;
     private final List<Product> products;
-    private OnItemClickListener onItemClickListener;
+    private OnProductClickListener onProductClickListener;
 
     ProductsRecyclerAdapter(List<Product> products) {
         this.products = products;
-        onProductClickListener = view -> onItemClickListener.onItemClick(view);
-    }
-
-    ProductsRecyclerAdapter setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-        return this;
-    }
-
-    Product getProductAt(int clickedPos) {
-        return products.get(clickedPos);
-    }
-
-    interface OnItemClickListener {
-        void onItemClick(View view);
+        onProductClickListener = view -> onProductClickListener.onItemClick(view);
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_product, parent, false);
-        view.setOnClickListener(onProductClickListener);
+        view.setOnClickListener(clickedView -> onProductClickListener.onItemClick(clickedView));
 
         return new RecyclerViewHolder(view);
     }
@@ -52,17 +39,29 @@ class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapt
         holder.tvName.setText(product.getName());
         holder.tvPrice.setText(String.valueOf(product.getPrice()));
 
-        Picasso.with(holder.ivProduct.getContext())
+        Glide.with(holder.ivProduct.getContext())
                 .load(product.getImageUrl())
-                .fit()
-                .noFade()
-                .centerCrop()
                 .into(holder.ivProduct);
+
+        ViewCompat.setTransitionName(holder.ivProduct, product.getId());
     }
 
     @Override
     public int getItemCount() {
         return products.size();
+    }
+
+    Product getProductAt(int clickedPos) {
+        return products.get(clickedPos);
+    }
+
+    ProductsRecyclerAdapter setOnProductClickListener(OnProductClickListener onProductClickListener) {
+        this.onProductClickListener = onProductClickListener;
+        return this;
+    }
+
+    interface OnProductClickListener {
+        void onItemClick(View view);
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder {

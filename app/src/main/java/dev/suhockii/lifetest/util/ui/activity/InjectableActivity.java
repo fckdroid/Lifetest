@@ -1,17 +1,14 @@
-package dev.suhockii.lifetest.ui;
+package dev.suhockii.lifetest.util.ui.activity;
 
 import android.support.v4.app.Fragment;
-
-import com.arellomobile.mvp.MvpAppCompatActivity;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
-import dev.suhockii.lifetest.ui.main.MainView;
 
-public class InjectableActivity extends MvpAppCompatActivity implements HasSupportFragmentInjector {
+public class InjectableActivity extends NonLeakActivity implements HasSupportFragmentInjector {
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 

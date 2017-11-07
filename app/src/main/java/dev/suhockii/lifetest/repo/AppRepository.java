@@ -18,7 +18,7 @@ public abstract class AppRepository {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 
-    public void saveDetailsFor(ProductDetails product) {
+    public void saveProductDetails(ProductDetails product) {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 }

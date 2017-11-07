@@ -32,7 +32,7 @@ public class RemoteRepository extends AppRepository {
     @Override
     public Single<ProductDetails> getDetailsFor(Product product) {
         return productsApi.getProductDetails(product.getId())
-                .cast(ProductDetails.class);
+                .map(productDetailsResponse -> (ProductDetails) productDetailsResponse);
     }
 
 }

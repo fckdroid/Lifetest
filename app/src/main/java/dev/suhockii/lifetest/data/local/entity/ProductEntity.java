@@ -1,6 +1,7 @@
 package dev.suhockii.lifetest.data.local.entity;
 
 import android.arch.persistence.room.Entity;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import dev.suhockii.lifetest.model.Product;
@@ -98,4 +99,31 @@ public class ProductEntity implements Product {
             return this;
         }
     }
+
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.name);
+        dest.writeInt(this.price);
+    }
+
+    protected ProductEntity(Parcel in) {
+        this.id = in.readString();
+        this.imageUrl = in.readString();
+        this.name = in.readString();
+        this.price = in.readInt();
+    }
+
+    public static final Creator<ProductEntity> CREATOR = new Creator<ProductEntity>() {
+        @Override
+        public ProductEntity createFromParcel(Parcel source) {return new ProductEntity(source);}
+
+        @Override
+        public ProductEntity[] newArray(int size) {return new ProductEntity[size];}
+    };
 }
