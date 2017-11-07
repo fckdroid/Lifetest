@@ -2,6 +2,7 @@ package dev.suhockii.lifetest.data.local.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
@@ -32,6 +33,11 @@ public class ProductDetailsEntity implements ProductDetails {
         this.name = name;
         this.price = price;
         this.description = description;
+    }
+
+    @Ignore
+    public ProductDetailsEntity(@NonNull String id) {
+        this.id = id;
     }
 
     @Override
@@ -152,4 +158,29 @@ public class ProductDetailsEntity implements ProductDetails {
         @Override
         public ProductDetailsEntity[] newArray(int size) {return new ProductDetailsEntity[size];}
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProductDetailsEntity that = (ProductDetailsEntity) o;
+
+        if (price != that.price) return false;
+        if (!id.equals(that.id)) return false;
+        if (imageUrl != null ? !imageUrl.equals(that.imageUrl) : that.imageUrl != null)
+            return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + price;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
 }

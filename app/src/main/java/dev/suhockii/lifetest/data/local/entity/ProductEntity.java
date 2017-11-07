@@ -1,6 +1,7 @@
 package dev.suhockii.lifetest.data.local.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
@@ -22,6 +23,11 @@ public class ProductEntity implements Product {
         this.imageUrl = imageUrl;
         this.name = name;
         this.price = price;
+    }
+
+    @Ignore
+    public ProductEntity(@NonNull String id) {
+        this.id = id;
     }
 
     @Override

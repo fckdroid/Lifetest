@@ -18,5 +18,5 @@ public interface DetailsView extends MvpView, SnackbarView {
     void showDetails(ProductDetails productDetails);
 
     @StateStrategyType(SkipStrategy.class)
-    void onPresenterFirstAttach();
+    void onFirstPresenterAttach();
 }

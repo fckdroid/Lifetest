@@ -1,5 +1,6 @@
 package dev.suhockii.lifetest.data.remote.entity;
 
+import android.arch.persistence.room.Ignore;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
@@ -57,7 +58,10 @@ public class ProductDetailsResponse implements ProductDetails {
         dest.writeString(this.description);
     }
 
-    public ProductDetailsResponse() {}
+    @Ignore
+    public ProductDetailsResponse(String id) {
+        this.id = id;
+    }
 
     protected ProductDetailsResponse(Parcel in) {
         this.id = in.readString();
@@ -74,4 +78,29 @@ public class ProductDetailsResponse implements ProductDetails {
         @Override
         public ProductDetailsResponse[] newArray(int size) {return new ProductDetailsResponse[size];}
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProductDetailsResponse that = (ProductDetailsResponse) o;
+
+        if (price != that.price) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (imageUrl != null ? !imageUrl.equals(that.imageUrl) : that.imageUrl != null)
+            return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + price;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
 }

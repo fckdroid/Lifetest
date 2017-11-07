@@ -39,7 +39,7 @@ public class ProductsPresenter extends NonLeakPresenter<ProductsView> {
         loadProducts();
     }
 
-    private void loadProducts() {
+    public void loadProducts() {
         localRepository.getProducts()
                 .onErrorResumeNext(localEmpty -> updateProducts())
                 .doOnSubscribe(compositeDisposable::add)

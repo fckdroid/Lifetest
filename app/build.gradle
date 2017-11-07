@@ -52,6 +52,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests.all {
+            unitTests.returnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
@@ -89,6 +94,7 @@ dependencies {
     )
     testImplementation(
             "junit:junit:$junit",
+            "org.mockito:mockito-android:$mockito",
     )
     annotationProcessor(
             "com.google.dagger:dagger-compiler:$dagger",
@@ -97,4 +103,6 @@ dependencies {
             "android.arch.persistence.room:compiler:$room",
             "com.github.bumptech.glide:compiler:$glide",
     )
+
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.11.0'
 }

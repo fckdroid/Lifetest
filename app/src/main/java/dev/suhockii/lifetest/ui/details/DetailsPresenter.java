@@ -35,7 +35,7 @@ public class DetailsPresenter extends NonLeakPresenter<DetailsView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        getViewState().onPresenterFirstAttach();
+        getViewState().onFirstPresenterAttach();
     }
 
     void loadDetailsFor(Product product) {

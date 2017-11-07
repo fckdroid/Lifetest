@@ -5,8 +5,13 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.transition.Fade;
+import android.support.transition.Transition;
+import android.support.transition.TransitionListenerAdapter;
+import android.support.transition.TransitionManager;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,7 +54,7 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
     public static final String SELECTED_PRODUCT_KEY = "product_key";
 
     private Product product;
-    private ImageView ivProduct;
+    private ViewGroup viewGroup;
     private TextView tvDescription;
     private TextView tvPrice;
     private TextView tvName;
@@ -89,21 +94,25 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ivProduct = view.findViewById(R.id.details_iv_product);
         tvName = view.findViewById(R.id.details_tv_name);
         tvPrice = view.findViewById(R.id.details_tv_price);
         tvDescription = view.findViewById(R.id.details_tv_description);
         fabBack = view.findViewById(R.id.details_fab_back);
+        viewGroup = view.findViewById(R.id.details_viewgroup);
 
+        fabBack.setOnClickListener(fabView -> getActivity().onBackPressed());
+        tvName.setText(product.getName());
+        tvPrice.setText(String.valueOf(product.getPrice()));
+        fabBack.setVisibility(View.INVISIBLE);
+        tvName.setVisibility(View.INVISIBLE);
+        tvDescription.setVisibility(View.INVISIBLE);
+        tvPrice.setVisibility(View.INVISIBLE);
+
+        ImageView ivProduct = view.findViewById(R.id.details_iv_product);
         ViewCompat.setTransitionName(ivProduct, product.getId());
         Glide.with(ivProduct)
                 .load(product.getImageUrl())
                 .into(ivProduct);
-
-        tvName.setText(product.getName());
-        tvPrice.setText(String.valueOf(product.getPrice()));
-        fabBack.setVisibility(View.INVISIBLE);
-        fabBack.setOnClickListener(fabView -> getActivity().onBackPressed());
     }
 
     @Override
@@ -112,7 +121,22 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
         Completable.timer(TRANSITION_DURATION, TimeUnit.MILLISECONDS)
                 .doOnSubscribe(compositeDisposable::add)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> fabBack.show());
+                .subscribe(this::showUi);
+    }
+
+    private void showUi() {
+        TransitionManager.beginDelayedTransition(viewGroup, new Fade()
+                .addTarget(tvDescription)
+                .addListener(new TransitionListenerAdapter() {
+                    @Override
+                    public void onTransitionEnd(@NonNull Transition transition) {
+                        super.onTransitionEnd(transition);
+                        fabBack.show();
+                    }
+                }));
+        tvName.setVisibility(View.VISIBLE);
+        tvDescription.setVisibility(View.VISIBLE);
+        tvPrice.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -121,7 +145,7 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
     }
 
     @Override
-    public void onPresenterFirstAttach() {
+    public void onFirstPresenterAttach() {
         detailsPresenter.loadDetailsFor(product);
     }
 }
