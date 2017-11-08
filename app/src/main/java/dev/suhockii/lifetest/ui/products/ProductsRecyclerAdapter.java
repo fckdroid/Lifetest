@@ -1,19 +1,30 @@
 package dev.suhockii.lifetest.ui.products;
 
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
 import dev.suhockii.lifetest.R;
 import dev.suhockii.lifetest.model.Product;
+
+import static dev.suhockii.lifetest.util.AppUtils.getGlideListener;
 
 class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapter.RecyclerViewHolder> {
     private final List<Product> products;
@@ -39,11 +50,14 @@ class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapt
         holder.tvName.setText(product.getName());
         holder.tvPrice.setText(String.valueOf(product.getPrice()));
 
-        Glide.with(holder.ivProduct.getContext())
-                .load(product.getImageUrl())
-                .into(holder.ivProduct);
+        ImageView ivProduct = holder.ivProduct;
 
-        ViewCompat.setTransitionName(holder.ivProduct, product.getId());
+        Glide.with(ivProduct.getContext())
+                .load(product.getImageUrl())
+                .listener(getGlideListener(holder.progressBar))
+                .into(ivProduct);
+
+        ViewCompat.setTransitionName(ivProduct, product.getId());
     }
 
     @Override
@@ -68,12 +82,14 @@ class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapt
         ImageView ivProduct;
         TextView tvName;
         TextView tvPrice;
+        ProgressBar progressBar;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
             ivProduct = itemView.findViewById(R.id.item_iv_product);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvPrice = itemView.findViewById(R.id.item_tv_price);
+            progressBar = itemView.findViewById(R.id.item_progressbar);
         }
     }
 }

@@ -1,5 +1,7 @@
 package dev.suhockii.lifetest.ui.details;
 
+import android.view.View;
+
 import com.arellomobile.mvp.InjectViewState;
 
 import javax.inject.Inject;
@@ -8,7 +10,7 @@ import javax.inject.Named;
 import dev.suhockii.lifetest.model.Product;
 import dev.suhockii.lifetest.model.ProductDetails;
 import dev.suhockii.lifetest.repo.AppRepository;
-import dev.suhockii.lifetest.util.ui.NonLeakPresenter;
+import dev.suhockii.lifetest.util.mvp.NonLeakPresenter;
 import dev.suhockii.lifetest.util.rx_transformers.RxSchedulers;
 import io.reactivex.Single;
 import timber.log.Timber;
@@ -39,13 +41,15 @@ public class DetailsPresenter extends NonLeakPresenter<DetailsView> {
     }
 
     void loadDetailsFor(Product product) {
+        getViewState().showProgressBar(View.VISIBLE);
+
         localRepository.getDetailsFor(product)
                 .onErrorResumeNext(localEmpty -> updateDetailsFor(product))
                 .doOnSubscribe(compositeDisposable::add)
                 .compose(rxSchedulers.getIoToMainTransformerSingle())
-                .doOnError(throwable -> getViewState().showSnackbar(
-                        throwable.getMessage(), () -> loadDetailsFor(product)))
                 .doOnSuccess(productDetails -> getViewState().clearShowSnackbarCommand())
+                .doOnError(throwable -> getViewState().showSnackbar(throwable.getMessage(), () -> loadDetailsFor(product)))
+                .doOnEvent((productDetails, throwable) -> getViewState().showProgressBar(View.INVISIBLE))
                 .subscribe(productDetails -> getViewState().showDetails(productDetails), Timber::e);
     }
 

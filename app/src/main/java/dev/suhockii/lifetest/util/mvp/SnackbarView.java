@@ -1,4 +1,4 @@
-package dev.suhockii.lifetest.util.ui;
+package dev.suhockii.lifetest.util.mvp;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;

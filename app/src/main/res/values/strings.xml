@@ -5,5 +5,4 @@
     <string name="fragment_products_title">Products</string>
     <string name="fragment_details_title">Description</string>
     <string name="network_error">Network error:\n</string>
-    <string name="product_image_transition" translatable="false">productImageTransition</string>
 </resources>

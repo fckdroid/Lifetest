@@ -16,9 +16,11 @@ public class ProductDetailsResponse implements ProductDetails {
     @SerializedName("image")
     private String imageUrl;
 
+    @SerializedName(value="description", alternate={"decription", "user"})
+    private String description;
+
     private String name;
     private int price;
-    private String description;
 
     @NonNull
     @Override
@@ -44,6 +46,10 @@ public class ProductDetailsResponse implements ProductDetails {
     @Override
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

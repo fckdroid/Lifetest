@@ -5,7 +5,7 @@ import android.support.design.widget.Snackbar;
 import javax.annotation.Nullable;
 
 import dev.suhockii.lifetest.R;
-import dev.suhockii.lifetest.util.ui.SnackbarView;
+import dev.suhockii.lifetest.util.mvp.SnackbarView;
 
 public abstract class SnackbarFragment extends NonLeakFragment implements SnackbarView {
 

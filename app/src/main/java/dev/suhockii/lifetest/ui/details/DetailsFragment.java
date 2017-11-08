@@ -1,23 +1,27 @@
 package dev.suhockii.lifetest.ui.details;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.transition.Fade;
-import android.support.transition.Transition;
-import android.support.transition.TransitionListenerAdapter;
 import android.support.transition.TransitionManager;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,10 +32,12 @@ import dev.suhockii.lifetest.di.AppInjector;
 import dev.suhockii.lifetest.model.Product;
 import dev.suhockii.lifetest.model.ProductDetails;
 import dev.suhockii.lifetest.util.ui.FragmentRouter;
+import dev.suhockii.lifetest.util.ui.Visibility;
 import dev.suhockii.lifetest.util.ui.fragment.SnackbarFragment;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
+import static dev.suhockii.lifetest.util.AppUtils.getGlideListener;
 import static dev.suhockii.lifetest.util.ui.FragmentRouter.TRANSITION_DURATION;
 
 /**
@@ -59,6 +65,7 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
     private TextView tvPrice;
     private TextView tvName;
     private FloatingActionButton fabBack;
+    private ProgressBar progressBarDescr;
 
     public static DetailsFragment newInstance(Product product) {
         Bundle bundle = new Bundle();
@@ -99,7 +106,10 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
         tvDescription = view.findViewById(R.id.details_tv_description);
         fabBack = view.findViewById(R.id.details_fab_back);
         viewGroup = view.findViewById(R.id.details_viewgroup);
+        progressBarDescr = view.findViewById(R.id.details_progressbar_description);
+        ProgressBar progressBarImage = view.findViewById(R.id.details_progressbar_image);
 
+        //noinspection ConstantConditions
         fabBack.setOnClickListener(fabView -> getActivity().onBackPressed());
         tvName.setText(product.getName());
         tvPrice.setText(String.valueOf(product.getPrice()));
@@ -112,6 +122,7 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
         ViewCompat.setTransitionName(ivProduct, product.getId());
         Glide.with(ivProduct)
                 .load(product.getImageUrl())
+                .listener(getGlideListener(progressBarImage))
                 .into(ivProduct);
     }
 
@@ -125,15 +136,9 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
     }
 
     private void showUi() {
+        fabBack.show();
         TransitionManager.beginDelayedTransition(viewGroup, new Fade()
-                .addTarget(tvDescription)
-                .addListener(new TransitionListenerAdapter() {
-                    @Override
-                    public void onTransitionEnd(@NonNull Transition transition) {
-                        super.onTransitionEnd(transition);
-                        fabBack.show();
-                    }
-                }));
+                .excludeTarget(R.id.details_iv_product, true));
         tvName.setVisibility(View.VISIBLE);
         tvDescription.setVisibility(View.VISIBLE);
         tvPrice.setVisibility(View.VISIBLE);
@@ -147,5 +152,10 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
     @Override
     public void onFirstPresenterAttach() {
         detailsPresenter.loadDetailsFor(product);
+    }
+
+    @Override
+    public void showProgressBar(@Visibility int visibility) {
+        progressBarDescr.setVisibility(visibility);
     }
 }

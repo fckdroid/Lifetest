@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,36 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <dev.suhockii.lifetest.util.ui.layout.RoundedCornerLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_86"
+        android:layout_height="@dimen/size_98"
         android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/item_iv_product"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_86"
+            android:layout_height="@dimen/size_98"
             android:contentDescription="@string/product_image"
-            android:transitionName="@string/product_image_transition"
-            app:srcCompat="@mipmap/ic_launcher"
+            tools:srcCompat="@mipmap/ic_launcher"
             tools:targetApi="lollipop" />
-    </dev.suhockii.lifetest.util.ui.layout.RoundedCornerLayout>
+
+        <ProgressBar
+            android:id="@+id/item_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 
     <TextView
         android:id="@+id/item_tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_8"
-        tools:text="Product name" />
+        style="@style/NameText"
+        tools:text="Apples" />
 
     <TextView
         android:id="@+id/item_tv_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_6"
-        android:textSize="@dimen/text_18"
+        style="@style/PriceText"
         tools:text="price" />
 </LinearLayout>

@@ -2,6 +2,7 @@ package dev.suhockii.lifetest.util.ui;
 
 import android.os.Build;
 import android.support.annotation.IdRes;
+import android.support.transition.ArcMotion;
 import android.support.transition.ChangeBounds;
 import android.support.transition.ChangeImageTransform;
 import android.support.transition.ChangeTransform;
@@ -54,10 +55,12 @@ public final class FragmentRouter {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Transition moving = TransitionInflater.from(view.getContext())
                     .inflateTransition(android.R.transition.move);
+//            moving.setPathMotion(new ArcMotion());
+
             TransitionSet transitionSet = new TransitionSet()
                     .addTransition(moving)
-                    .addTransition(new ChangeImageTransform())
                     .addTransition(new ChangeTransform())
+                    .addTransition(new ChangeImageTransform())
                     .setDuration(TRANSITION_DURATION);
             nextFragment.setSharedElementEnterTransition(transitionSet);
         }

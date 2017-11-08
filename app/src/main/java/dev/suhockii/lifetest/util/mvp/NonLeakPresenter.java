@@ -1,9 +1,10 @@
-package dev.suhockii.lifetest.util.ui;
+package dev.suhockii.lifetest.util.mvp;
 
 import com.arellomobile.mvp.MvpPresenter;
 import com.arellomobile.mvp.MvpView;
 
 import io.reactivex.disposables.CompositeDisposable;
+import timber.log.Timber;
 
 public abstract class NonLeakPresenter<V extends MvpView> extends MvpPresenter<V> {
 
@@ -12,6 +13,7 @@ public abstract class NonLeakPresenter<V extends MvpView> extends MvpPresenter<V
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         compositeDisposable.clear();
     }
 }

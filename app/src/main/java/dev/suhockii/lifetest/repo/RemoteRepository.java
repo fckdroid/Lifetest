@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import dev.suhockii.lifetest.data.local.dao.ProductDao;
 import dev.suhockii.lifetest.data.local.dao.ProductDetailsDao;
 import dev.suhockii.lifetest.data.remote.ProductsApi;
+import dev.suhockii.lifetest.data.remote.entity.ProductDetailsResponse;
 import dev.suhockii.lifetest.data.remote.entity.ProductListResponse;
 import dev.suhockii.lifetest.model.Product;
 import dev.suhockii.lifetest.model.ProductDetails;
@@ -32,7 +33,14 @@ public class RemoteRepository extends AppRepository {
     @Override
     public Single<ProductDetails> getDetailsFor(Product product) {
         return productsApi.getProductDetails(product.getId())
-                .map(productDetailsResponse -> (ProductDetails) productDetailsResponse);
+                .map(this::getFormattedDetails);
     }
 
+    private ProductDetails getFormattedDetails(ProductDetailsResponse productDetails) {
+        String description = productDetails.getDescription();
+        if (description == null || description.isEmpty()) {
+            productDetails.setDescription("¯\\_(ツ)_/¯");
+        }
+        return productDetails;
+    }
 }

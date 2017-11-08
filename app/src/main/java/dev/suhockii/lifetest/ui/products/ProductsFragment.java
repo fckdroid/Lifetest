@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -18,6 +19,7 @@ import dev.suhockii.lifetest.R;
 import dev.suhockii.lifetest.di.AppInjector;
 import dev.suhockii.lifetest.model.Product;
 import dev.suhockii.lifetest.util.ui.FragmentRouter;
+import dev.suhockii.lifetest.util.ui.Visibility;
 import dev.suhockii.lifetest.util.ui.fragment.SnackbarFragment;
 import dev.suhockii.lifetest.util.ui.layout.AutofitRecyclerView;
 
@@ -35,6 +37,7 @@ public class ProductsFragment extends SnackbarFragment implements ProductsView {
     }
 
     private AutofitRecyclerView rvProducts;
+    private ProgressBar progressBar;
 
     @NonNull
     @Override
@@ -45,13 +48,15 @@ public class ProductsFragment extends SnackbarFragment implements ProductsView {
     @Override
     @LayoutRes
     protected int getLayoutRes() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_products;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvProducts = view.findViewById(R.id.list_rv_products);
+        rvProducts = view.findViewById(R.id.products_rv);
+        progressBar = view.findViewById(R.id.products_progressbar);
+
         rvProducts.setHasFixedSize(true);
     }
 
@@ -60,6 +65,11 @@ public class ProductsFragment extends SnackbarFragment implements ProductsView {
         RecyclerView.Adapter adapter = new ProductsRecyclerAdapter(products)
                 .setOnProductClickListener(this::onProductClick);
         rvProducts.setAdapter(adapter);
+    }
+
+    @Override
+    public void showProgressBar(@Visibility int visible) {
+        progressBar.setVisibility(visible);
     }
 
     private void onProductClick(View view) {

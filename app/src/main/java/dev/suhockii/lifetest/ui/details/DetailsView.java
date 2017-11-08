@@ -6,7 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import dev.suhockii.lifetest.model.ProductDetails;
-import dev.suhockii.lifetest.util.ui.SnackbarView;
+import dev.suhockii.lifetest.util.mvp.SnackbarView;
+import dev.suhockii.lifetest.util.ui.Visibility;
 
 public interface DetailsView extends MvpView, SnackbarView {
     /**
@@ -19,4 +20,7 @@ public interface DetailsView extends MvpView, SnackbarView {
 
     @StateStrategyType(SkipStrategy.class)
     void onFirstPresenterAttach();
+
+    @StateStrategyType(AddToEndSingleStrategy.class)
+    void showProgressBar(@Visibility int visible);
 }

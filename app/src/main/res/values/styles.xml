@@ -6,15 +6,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DefaultText">
+    <style name="NameText">
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/size_8</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PriceText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/size_8</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="DescriptionText">
-        <item name="android:layout_marginTop">@dimen/size_16</item>
-        <item name="android:layout_marginBottom">@dimen/size_56</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment" tools:targetApi="jelly_bean_mr1">center</item>
         <item name="android:layout_width">match_parent</item>
