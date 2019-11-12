@@ -1,8 +1,8 @@
 package dev.suhockii.lifetest.data.remote.entity;
 
-import android.arch.persistence.room.Ignore;
+import androidx.room.Ignore;
 import android.os.Parcel;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 

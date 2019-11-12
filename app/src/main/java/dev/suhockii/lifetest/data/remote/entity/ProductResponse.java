@@ -1,7 +1,7 @@
 package dev.suhockii.lifetest.data.remote.entity;
 
 import android.os.Parcel;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 

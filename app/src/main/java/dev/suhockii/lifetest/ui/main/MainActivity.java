@@ -1,16 +1,12 @@
 package dev.suhockii.lifetest.ui.main;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
+import androidx.annotation.IdRes;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.ActionBar;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import com.crashlytics.android.Crashlytics;
-
-import io.fabric.sdk.android.Fabric;
 
 import javax.inject.Inject;
 

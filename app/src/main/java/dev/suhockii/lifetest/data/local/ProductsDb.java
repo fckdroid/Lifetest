@@ -1,7 +1,7 @@
 package dev.suhockii.lifetest.data.local;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 import dev.suhockii.lifetest.data.local.dao.ProductDao;
 import dev.suhockii.lifetest.data.local.dao.ProductDetailsDao;
