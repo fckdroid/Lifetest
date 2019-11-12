@@ -45,7 +45,7 @@ public class DetailsPresenter extends NonLeakPresenter<DetailsView> {
 
         localRepository.getDetailsFor(product)
                 .onErrorResumeNext(localEmpty -> updateDetailsFor(product))
-                .doOnSubscribe(compositeDisposable::add)
+                .doOnSubscribe(getCompositeDisposable()::add)
                 .compose(rxSchedulers.getIoToMainTransformerSingle())
                 .doOnSuccess(productDetails -> getViewState().clearShowSnackbarCommand())
                 .doOnError(throwable -> getViewState().showSnackbar(throwable.getMessage(), () -> loadDetailsFor(product)))

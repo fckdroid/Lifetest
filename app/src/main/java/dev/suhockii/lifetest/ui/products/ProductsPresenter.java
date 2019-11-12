@@ -47,7 +47,7 @@ public class ProductsPresenter extends NonLeakPresenter<ProductsView> {
         localRepository.getProducts()
                 .onErrorResumeNext(localEmpty -> updateProducts())
                 .compose(rxSchedulers.getIoToMainTransformerSingle())
-                .doOnSubscribe(compositeDisposable::add)
+                .doOnSubscribe(getCompositeDisposable()::add)
                 .doOnEvent((products, throwable) -> getViewState().showProgressBar(View.INVISIBLE))
                 .doOnSuccess(products -> getViewState().clearShowSnackbarCommand())
                 .doOnError(throwable -> getViewState().showSnackbar(throwable.getMessage(), this::loadProducts))

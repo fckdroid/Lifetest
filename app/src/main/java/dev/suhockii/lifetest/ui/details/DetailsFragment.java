@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.transition.Fade;
 import androidx.transition.TransitionManager;
 import androidx.core.view.ViewCompat;
@@ -14,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import dev.suhockii.lifetest.util.AppUtils;
 import moxy.presenter.InjectPresenter;
 import moxy.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,9 +32,6 @@ import dev.suhockii.lifetest.util.ui.Visibility;
 import dev.suhockii.lifetest.util.ui.fragment.SnackbarFragment;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-
-import static dev.suhockii.lifetest.util.AppUtils.getGlideListener;
-import static dev.suhockii.lifetest.util.ui.FragmentRouter.TRANSITION_DURATION;
 
 /**
  * Use the {@link DetailsFragment#newInstance} factory method to
@@ -117,15 +115,15 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
         ViewCompat.setTransitionName(ivProduct, product.getId());
         Glide.with(ivProduct)
                 .load(product.getImageUrl())
-                .listener(getGlideListener(progressBarImage))
+                .listener(AppUtils.getGlideListener(progressBarImage))
                 .into(ivProduct);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Completable.timer(TRANSITION_DURATION, TimeUnit.MILLISECONDS)
-                .doOnSubscribe(compositeDisposable::add)
+        Completable.timer(FragmentRouter.TRANSITION_DURATION, TimeUnit.MILLISECONDS)
+                .doOnSubscribe(disposable -> getCompositeDisposable().add(disposable))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::showUi);
     }

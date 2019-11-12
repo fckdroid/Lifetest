@@ -18,8 +18,7 @@ import java.util.List;
 
 import dev.suhockii.lifetest.R;
 import dev.suhockii.lifetest.model.Product;
-
-import static dev.suhockii.lifetest.util.AppUtils.getGlideListener;
+import dev.suhockii.lifetest.util.AppUtils;
 
 class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapter.RecyclerViewHolder> {
     private final List<Product> products;
@@ -49,7 +48,7 @@ class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapt
 
         Glide.with(ivProduct.getContext())
                 .load(product.getImageUrl())
-                .listener(getGlideListener(holder.progressBar))
+                .listener(AppUtils.getGlideListener(holder.progressBar))
                 .into(ivProduct);
 
         ViewCompat.setTransitionName(ivProduct, product.getId());
