@@ -1,9 +1,10 @@
 package dev.suhockii.lifetest.ui.products;
 
 
-import com.arellomobile.mvp.MvpView;
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
+import moxy.MvpView;
+import moxy.viewstate.strategy.AddToEndSingleStrategy;
+import moxy.viewstate.strategy.AddToEndStrategy;
+import moxy.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
@@ -21,5 +22,6 @@ public interface ProductsView extends MvpView, SnackbarView{
     @StateStrategyType(AddToEndSingleStrategy.class)
     void showProducts(List<Product> products);
 
+    @StateStrategyType(AddToEndSingleStrategy.class)
     void showProgressBar(@Visibility int visible);
 }

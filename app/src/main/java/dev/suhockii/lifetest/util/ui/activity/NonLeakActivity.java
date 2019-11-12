@@ -8,7 +8,7 @@ import androidx.collection.ArrayMap;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
+import moxy.MvpAppCompatActivity;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;

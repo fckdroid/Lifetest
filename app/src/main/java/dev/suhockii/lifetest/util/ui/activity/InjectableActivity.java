@@ -1,19 +1,17 @@
 package dev.suhockii.lifetest.util.ui.activity;
 
-import androidx.fragment.app.Fragment;
-
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger.android.HasAndroidInjector;
 
-public class InjectableActivity extends NonLeakActivity implements HasSupportFragmentInjector {
+public class InjectableActivity extends NonLeakActivity implements HasAndroidInjector {
     @Inject
-    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+    DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public AndroidInjector<Object> androidInjector() {
         return dispatchingAndroidInjector;
     }
 }

@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.ActionBar;
 import android.widget.Toast;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
+import moxy.presenter.InjectPresenter;
 
 import javax.inject.Inject;
 

@@ -1,7 +1,7 @@
 package dev.suhockii.lifetest.util.mvp;
 
-import com.arellomobile.mvp.MvpPresenter;
-import com.arellomobile.mvp.MvpView;
+import moxy.MvpPresenter;
+import moxy.MvpView;
 
 import io.reactivex.disposables.CompositeDisposable;
 import timber.log.Timber;

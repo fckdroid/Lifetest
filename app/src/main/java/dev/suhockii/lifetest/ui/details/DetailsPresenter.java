@@ -2,7 +2,7 @@ package dev.suhockii.lifetest.ui.details;
 
 import android.view.View;
 
-import com.arellomobile.mvp.InjectViewState;
+import moxy.InjectViewState;
 
 import javax.inject.Inject;
 import javax.inject.Named;

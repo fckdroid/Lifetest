@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
+import moxy.presenter.InjectPresenter;
+import moxy.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 
 import java.util.concurrent.TimeUnit;
