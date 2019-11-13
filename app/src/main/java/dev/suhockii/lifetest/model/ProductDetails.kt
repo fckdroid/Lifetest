@@ -1,5 +1,5 @@
 package dev.suhockii.lifetest.model
 
 interface ProductDetails : Product {
-    val description: String
+    val description: String?
 }

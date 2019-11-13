@@ -55,7 +55,7 @@ open class LocalRepository @Inject constructor(
     override fun saveProductDetails(productDetails: ProductDetails) {
         productDetailsDao.saveProductDetails(
             ProductDetailsEntity.Builder()
-                .description(productDetails.description)
+                .description(productDetails.description ?: "")
                 .id(productDetails.id)
                 .imageUrl(productDetails.imageUrl)
                 .name(productDetails.name)

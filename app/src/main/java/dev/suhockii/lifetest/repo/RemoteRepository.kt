@@ -11,7 +11,7 @@ open class RemoteRepository @Inject constructor(private val productsApi: Product
 
     override fun getProducts(): Single<List<Product>> {
         return productsApi.products
-            .map<List<Product>> { it.products }
+            .map<List<Product>> { it.getProducts() }
             .flatMapIterable { productEntities -> productEntities }
             .map { productEntity -> productEntity }
             .toList()
@@ -24,8 +24,8 @@ open class RemoteRepository @Inject constructor(private val productsApi: Product
 
     private fun getFormattedDetails(productDetails: ProductDetailsResponse): ProductDetails {
         val description = productDetails.description
-        if (description.isEmpty()) {
-            productDetails.setDescription("¯\\_(ツ)_/¯")
+        if (description == null || description.isEmpty()) {
+            productDetails.description = "¯\\_(ツ)_/¯"
         }
         return productDetails
     }
