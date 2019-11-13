@@ -18,7 +18,15 @@ import dev.suhockii.lifetest.di.Injectable
 abstract class InteractionFragment : MvpAppCompatFragment(), Injectable {
     private var onFragmentInteractionListener: OnFragmentInteractionListener? = null
 
+    /**
+     * Contains text that should be displayed on Toolbar
+     */
     protected abstract val toolbarTitle: String
+
+    /**
+     * If true, back button on Toolbar will be shown.
+     */
+    protected abstract val showBackButton: Boolean
 
     @get:LayoutRes
     protected abstract val layoutRes: Int
@@ -27,7 +35,7 @@ abstract class InteractionFragment : MvpAppCompatFragment(), Injectable {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        onFragmentInteractionListener!!.onFragmentInteraction(toolbarTitle)
+        onFragmentInteractionListener!!.onFragmentInteraction(toolbarTitle, showBackButton)
         return inflater.inflate(layoutRes, container, false)
     }
 
@@ -51,6 +59,6 @@ abstract class InteractionFragment : MvpAppCompatFragment(), Injectable {
         /**
          * Call when fragment attaches to activity
          */
-        fun onFragmentInteraction(title: String)
+        fun onFragmentInteraction(title: String, showBackButton: Boolean)
     }
 }

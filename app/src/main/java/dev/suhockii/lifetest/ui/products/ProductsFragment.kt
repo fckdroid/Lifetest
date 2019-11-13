@@ -29,6 +29,9 @@ class ProductsFragment : SnackbarFragment(), ProductsView {
     override val toolbarTitle: String
         get() = getString(R.string.fragment_products_title)
 
+    override val showBackButton: Boolean
+        get() = false
+
     override val layoutRes: Int
         @LayoutRes
         get() = R.layout.fragment_products
