@@ -34,11 +34,8 @@ class DetailsPresenter @Inject constructor(
             .compose(rxSchedulers.getIoToMainTransformerSingle())
             .doOnSuccess { viewState.clearShowSnackbarCommand() }
             .doOnError { throwable -> viewState.showSnackbar(throwable.message, Runnable { loadDetailsFor(product) }) }
-            .doOnEvent { _, throwable ->
-                Timber.e(throwable)
-                viewState.showProgressBar(View.INVISIBLE)
-            }
-            .subscribe { productDetails -> viewState.showDetails(productDetails) }
+            .doOnEvent { _, _ -> viewState.showProgressBar(View.INVISIBLE) }
+            .subscribe ({ productDetails -> viewState.showDetails(productDetails) }, Timber::e)
     }
 
     private fun updateDetailsFor(product: Product): Single<ProductDetails> {

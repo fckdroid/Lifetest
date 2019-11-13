@@ -33,11 +33,8 @@ class ProductsPresenter @Inject constructor(
             .doOnSubscribe { compositeDisposable.add(it) }
             .doOnEvent { _, _ -> viewState.showProgressBar(View.INVISIBLE) }
             .doOnSuccess { viewState.clearShowSnackbarCommand() }
-            .doOnError { throwable ->
-                Timber.e(throwable)
-                viewState.showSnackbar(throwable.message, Runnable { this.loadProducts() })
-            }
-            .subscribe { products -> viewState.showProducts(products) }
+            .doOnError { throwable ->viewState.showSnackbar(throwable.message, Runnable { this.loadProducts() })}
+            .subscribe ({ products -> viewState.showProducts(products) }, Timber::e)
     }
 
     private fun updateProducts(): Single<List<Product>> {
