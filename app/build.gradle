@@ -17,6 +17,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -99,13 +100,11 @@ dependencies {
             "junit:junit:$junit",
             "org.mockito:mockito-android:$mockito",
     )
-    annotationProcessor(
-            "com.google.dagger:dagger-compiler:$dagger",
-            "com.google.dagger:dagger-android-processor:$dagger",
-            "com.github.moxy-community:moxy-compiler:$moxy",
-            'androidx.room:room-compiler:2.0.0',
-            "com.github.bumptech.glide:compiler:$glide",
-    )
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    kapt "com.google.dagger:dagger-android-processor:$dagger"
+    kapt "com.github.moxy-community:moxy-compiler:$moxy"
+    kapt 'androidx.room:room-compiler:2.0.0'
+    kapt "com.github.bumptech.glide:compiler:$glide"
 
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.11.0'
     compile "androidx.core:core-ktx:+"

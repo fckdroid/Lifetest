@@ -115,7 +115,7 @@ public class DetailsFragment extends SnackbarFragment implements DetailsView {
         ViewCompat.setTransitionName(ivProduct, product.getId());
         Glide.with(ivProduct)
                 .load(product.getImageUrl())
-                .listener(AppUtils.getGlideListener(progressBarImage))
+                .listener(AppUtils.INSTANCE.getGlideListener(progressBarImage))
                 .into(ivProduct);
     }
 
