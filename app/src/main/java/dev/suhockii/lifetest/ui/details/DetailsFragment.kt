@@ -45,7 +45,7 @@ class DetailsFragment : SnackbarFragment(), DetailsView {
 
     @ProvidePresenter
     fun provideDetailsPresenter(): DetailsPresenter {
-        return AppInjector.getAppComponent().detailsPresenter
+        return AppInjector.appComponent!!.detailsPresenter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

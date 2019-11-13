@@ -38,7 +38,7 @@ class ProductsFragment : SnackbarFragment(), ProductsView {
 
     @ProvidePresenter
     fun provideProductsPresenter(): ProductsPresenter {
-        return AppInjector.getAppComponent().productsPresenter
+        return AppInjector.appComponent!!.productsPresenter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

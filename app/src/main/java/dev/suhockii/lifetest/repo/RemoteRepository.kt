@@ -23,8 +23,8 @@ class RemoteRepository @Inject constructor(private val productsApi: ProductsApi)
 
     private fun getFormattedDetails(productDetails: ProductDetailsResponse): ProductDetails {
         val description = productDetails.description
-        if (description == null || description.isEmpty()) {
-            productDetails.description = "¯\\_(ツ)_/¯"
+        if (description.isEmpty()) {
+            productDetails.setDescription("¯\\_(ツ)_/¯")
         }
         return productDetails
     }
