@@ -2,7 +2,7 @@
 This is a simple application that displays the list of products.
 The goal of this assignment is to assess my mobile application development knowledge and general programming style.
 
-[<img src="https://www.javatpoint.com/fullformpages/images/apk.png">](https://drive.google.com/open?id=1PBUYJUKlk6CWgYdz9KnAhVhH9foK8NI4)
+[<img src="https://www.javatpoint.com/fullformpages/images/apk.png">](https://drive.google.com/open?id=12tu-30TsOyTn78X4jyVULDZnph5r-acE)
 
 ## Implemented
 - Image cache
@@ -18,7 +18,7 @@ The goal of this assignment is to assess my mobile application development knowl
 
 MIT License
 
-Copyright (c) 2017 Maksim Sukhotski
+Copyright (c) 2019 Maksim Sukhotski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
