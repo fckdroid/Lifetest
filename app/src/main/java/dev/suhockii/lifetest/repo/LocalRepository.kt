@@ -14,13 +14,13 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import timber.log.Timber
 
-class LocalRepository @Inject constructor(
+open class LocalRepository @Inject constructor(
     private val productDao: ProductDao,
     private val productDetailsDao: ProductDetailsDao
 ) : AppRepository() {
 
-    override val products: Single<List<Product>>
-        get() = productDao.products
+    override fun getProducts(): Single<List<Product>> {
+        return productDao.products
             .doOnSuccess { productEntities ->
                 if (productEntities.isEmpty()) {
                     throw Resources.NotFoundException()
@@ -30,6 +30,8 @@ class LocalRepository @Inject constructor(
             .flatMapIterable { productEntities -> productEntities }
             .cast(Product::class.java)
             .toList()
+
+    }
 
     override fun getDetailsFor(product: Product): Single<ProductDetails> {
         return productDetailsDao.getProductDetails(product.id)

@@ -27,7 +27,7 @@ class ProductsPresenter @Inject constructor(
     private fun loadProducts() {
         viewState.showProgressBar(View.VISIBLE)
 
-        localRepository.products
+        localRepository.getProducts()
             .onErrorResumeNext { updateProducts() }
             .compose(rxSchedulers.getIoToMainTransformerSingle())
             .doOnSubscribe { compositeDisposable.add(it) }
@@ -38,7 +38,7 @@ class ProductsPresenter @Inject constructor(
     }
 
     private fun updateProducts(): Single<List<Product>> {
-        return remoteRepository.products
+        return remoteRepository.getProducts()
             .doOnSuccess { localRepository.saveProducts(it) }
     }
 }

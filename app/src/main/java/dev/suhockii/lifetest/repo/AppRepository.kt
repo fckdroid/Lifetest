@@ -9,7 +9,7 @@ private const val NOT_IMPLEMENTED = "Not implemented, yet"
 abstract class AppRepository {
 
 
-    abstract val products: Single<List<Product>>
+    abstract fun getProducts(): Single<List<Product>>
     abstract fun getDetailsFor(product: Product): Single<ProductDetails>
 
     open fun saveProducts(products: List<Product>) {

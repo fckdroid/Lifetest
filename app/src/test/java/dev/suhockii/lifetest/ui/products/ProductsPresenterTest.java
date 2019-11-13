@@ -11,16 +11,13 @@ import dev.suhockii.lifetest.model.Product;
 import dev.suhockii.lifetest.repo.AppRepository;
 import dev.suhockii.lifetest.repo.LocalRepository;
 import dev.suhockii.lifetest.repo.RemoteRepository;
-import dev.suhockii.lifetest.ui.details.DetailsPresenter;
-import dev.suhockii.lifetest.ui.details.DetailsView;
 import dev.suhockii.lifetest.util.rx_transformers.RxSchedulers;
 import io.reactivex.Single;
+import io.reactivex.SingleTransformer;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -43,7 +40,7 @@ public class ProductsPresenterTest {
     }
 
     @Test
-    public void onFirstViewAttachLoadLocal() throws Exception {
+    public void onFirstViewAttachLoadLocal() {
         ArrayList<Product> products = new ArrayList<>();
         when(rxSchedulers.getIoToMainTransformerSingle()).thenReturn(upstream -> upstream);
         when(localRepository.getProducts()).thenReturn(Single.just(products));

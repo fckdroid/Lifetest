@@ -7,14 +7,15 @@ import dev.suhockii.lifetest.model.ProductDetails
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RemoteRepository @Inject constructor(private val productsApi: ProductsApi) : AppRepository() {
+open class RemoteRepository @Inject constructor(private val productsApi: ProductsApi) : AppRepository() {
 
-    override val products: Single<List<Product>>
-        get() = productsApi.products
+    override fun getProducts(): Single<List<Product>> {
+        return productsApi.products
             .map<List<Product>> { it.products }
             .flatMapIterable { productEntities -> productEntities }
             .map { productEntity -> productEntity }
             .toList()
+    }
 
     override fun getDetailsFor(product: Product): Single<ProductDetails> {
         return productsApi.getProductDetails(product.id)
