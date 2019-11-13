@@ -37,7 +37,6 @@ class LocalRepository @Inject constructor(
     }
 
     override fun saveProducts(products: List<Product>) {
-        super.saveProducts(products)
         Observable.fromIterable(products)
             .map { product ->
                 ProductEntity.Builder()
